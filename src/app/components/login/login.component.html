@@ -1,0 +1,33 @@
+<div class="login">
+    <h2 class="login-header">Log in</h2>
+    <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
+  
+      <p [ngClass]="{ 'has-error': formControls.email.touched && formControls.email.invalid }">
+        <input type="email" placeholder="Email" formControlName="email">
+      </p>
+  
+      <div *ngIf="formControls.email.touched && formControls.email.errors" class="help-block">
+        <div *ngIf="formControls.email.errors.required" class="error">Email is required</div>
+      </div>
+      <div *ngIf="formControls.email.touched && formControls.email.errors" class="help-block">
+        <div *ngIf="formControls.email.errors.pattern" class="error">Email is Invalid</div>
+      </div>
+  
+      <p [ngClass]="{ 'has-error': formControls.password.touched && formControls.password.invalid }">
+        <input type="password" placeholder="Password" formControlName="password">
+      </p>
+  
+      <div *ngIf="formControls.password.touched && formControls.password.errors" class="help-block">
+        <div *ngIf="formControls.password.errors.required" class="error">Password is required</div>
+      </div>
+  
+      <div *ngIf="formControls.password.touched && formControls.password.errors" class="help-block">
+        <div *ngIf="formControls.password.errors.minlength || formControls.password.errors.maxlength" class="error">Password length should be 6 to 20 charactor</div>
+      </div>
+  
+      <p>
+        <input type="submit" value="Log in" >
+      </p>
+    </form>
+    
+  </div>
