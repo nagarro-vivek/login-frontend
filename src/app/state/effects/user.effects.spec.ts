@@ -1,30 +1,45 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+import { of, ReplaySubject } from 'rxjs';
 import { AppEffects } from './user.effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpService } from 'src/app/services/http.service';
 
 describe('AppEffects', () => {
-  let actions$: Observable<any>;
+  let actions$: ReplaySubject<any>;
   let effects: AppEffects;
+  let httpService:any;
 
   beforeEach(() => {
+      httpService = {
+          login: () => {
+              return of({status: 200, Message: 'Login Successfull'})
+          }
+      }
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
         HttpClientTestingModule
       ],
       providers: [
         AppEffects,
-        provideMockActions(() => actions$)
+        provideMockActions(() => actions$),
+        {provide:HttpService, useValue:httpService}
       ]
     });
 
-    effects = TestBed.get<AppEffects>(AppEffects);
+    effects = TestBed.inject<AppEffects>(AppEffects);
+
   });
 
   it('should be created', () => {
     expect(effects).toBeTruthy();
   });
+
+  it('should result in login user success when credentials are correct', () => {
+      actions$ = new ReplaySubject(1)
+      actions$.next({type:'[User] Login Users', data:null})
+      effects.loginUser.subscribe((data: any) => {
+          expect(data.type).toBe('[User] Login User Success')
+      })
+  })
 });

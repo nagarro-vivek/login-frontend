@@ -15,7 +15,7 @@ export class AppEffects {
       map(() => 
         loginUserSuccess()
       ),
-      catchError(() =>
+      catchError((err: any) =>
        of(loginUserFailure())
       )
     ))

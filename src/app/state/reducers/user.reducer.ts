@@ -1,4 +1,4 @@
-import { createReducer, on, State } from '@ngrx/store'
+import { createReducer, on } from '@ngrx/store'
 import { loginUserSuccess, loginUserFailure } from '../actions/user.action';
 
 export interface UserLoginState {
