@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loginUserFailure } from 'src/app/state/actions/user.action';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +10,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private store:Store, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   logout(){
+    this.store.dispatch(loginUserFailure())
     this.router.navigateByUrl('/login');
   }
 
