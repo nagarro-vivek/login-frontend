@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
       this.isAuthenticated = res;
       if(this.isAuthenticated){
         this.router.navigateByUrl('/dashboard');
+      } else {
+        alert("Invalid Username or Password")
       }
     })
 
